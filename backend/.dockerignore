@@ -1,0 +1,13 @@
+build
+.gradle
+gradle
+node_modules
+.idea
+.git
+**/src/frontend
+**/frontend
+*.iml
+*.log
+/.mvn
+/.vscode
+/.DS_Store

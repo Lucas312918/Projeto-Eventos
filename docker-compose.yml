@@ -1,0 +1,41 @@
+services:
+  db-eventos:
+    image: postgres:16
+    container_name: db-eventos
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: eventos
+      POSTGRES_USER: eventos
+      POSTGRES_PASSWORD: eventos123
+    ports:
+      - "5435:5432"
+    volumes:
+      - eventos_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U eventos -d eventos"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: .
+    container_name: eventos-backend
+    depends_on:
+      db-eventos:
+        condition: service_healthy
+    environment:
+      - PORT=8083
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db-eventos:5432/eventos
+      - SPRING_DATASOURCE_USERNAME=eventos
+      - SPRING_DATASOURCE_PASSWORD=eventos123
+    ports:
+      - "8083:8083"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8083/actuator/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+
+volumes:
+  eventos_data:
