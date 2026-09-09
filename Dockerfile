@@ -6,7 +6,7 @@ WORKDIR /home/gradle/project
 
 # The repository also contains the frontend; the Gradle project lives in backend/.
 COPY --chown=gradle:gradle backend/ /home/gradle/project/
-RUN ./gradlew bootJar --no-daemon
+RUN chmod +x gradlew && ./gradlew bootJar --no-daemon
 
 ### Run stage
 FROM eclipse-temurin:17-jre-jammy
