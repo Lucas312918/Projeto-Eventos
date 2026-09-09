@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Link, Routes, Route } from 'react-router-dom'
 import Dashboard from './pages/Dashboard.jsx'
 import Eventos from './pages/Eventos.jsx'
 import FormEvento from './pages/FormEvento.jsx'
@@ -9,10 +9,10 @@ function App() {
   return (
     <div>
       <nav>
-        <a href="/">Dashboard</a>
-        <a href="/eventos">Eventos</a>
-        <a href="/eventos/novo">Novo Evento</a>
-        <a href="/participantes">Participantes</a>
+        <Link to="/">Dashboard</Link>
+        <Link to="/eventos">Eventos</Link>
+        <Link to="/eventos/novo">Novo Evento</Link>
+        <Link to="/participantes">Participantes</Link>
       </nav>
       <div className="container">
         <Routes>
